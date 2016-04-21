@@ -1,4 +1,5 @@
-import React from 'react'
+import React from "react";
+import {Col, Nav, Navbar, NavItem} from "react-bootstrap";
 var NavLink = require('../components/navLink');
 var Home = require('./home.container');
 
@@ -6,14 +7,24 @@ export default React.createClass({
     render() {
         return (
             <div>
-                <h1>Messaging App Web Test</h1>
-                <ul role="nav">
-                    <li><NavLink to="/" onlyActiveOnIndex={true}>Home</NavLink></li>
-                    <li><NavLink to="/profile">Profile</NavLink></li>
-                    <li><NavLink to="/messages">Messages</NavLink></li>
-                    <li><NavLink to="/stats">Stats</NavLink></li>
-                </ul>
-                {this.props.children || <Home/>}
+                <Navbar>
+                    <Navbar.Header>
+                        <Navbar.Brand>
+                            <a href="/">Messaging App Web</a>
+                        </Navbar.Brand>
+                    </Navbar.Header>
+                    <Nav>
+                        <li><NavLink to="/" onlyActiveOnIndex={true}>Home</NavLink></li>
+                        <li><NavLink to="/profile">Profile</NavLink></li>
+                        <li><NavLink to="/messages">Messages</NavLink></li>
+                        <li><NavLink to="/stats">Stats</NavLink></li>
+                    </Nav>
+                </Navbar>
+                <Col md={1}></Col>
+                <Col md={8}>
+                    {this.props.children || <Home/>}
+                </Col>
+
             </div>
         )
     }
