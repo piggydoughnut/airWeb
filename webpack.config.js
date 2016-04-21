@@ -16,9 +16,14 @@ var config = {
                 test: /\.jsx?$/,
                 include: APP_DIR,
                 loader: 'babel',
+                exclude: /node_modules/,
                 query: {
                     presets: ['es2015', 'react']
                 }
+            },
+            {
+                test: /masonry|imagesloaded|fizzy\-ui\-utils|desandro\-|outlayer|get\-size|doc\-ready|eventie|eventemitter/,
+                loader: 'imports?define=>false&this=>window'
             }
         ]
     }

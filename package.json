@@ -14,9 +14,12 @@
   "author": "Daria",
   "license": "ISC",
   "dependencies": {
+    "imports-loader": "^0.6.5",
     "react": "^15.0.1",
     "react-bootstrap": "^0.29.0",
     "react-dom": "^15.0.1",
+    "react-masonry-component": "^4.0.2",
+    "react-masonry-layout": "^0.2.2",
     "react-router": "^2.3.0"
   },
   "devDependencies": {

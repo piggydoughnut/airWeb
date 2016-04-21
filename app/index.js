@@ -6,6 +6,7 @@ var Profile = require("./containers/profile.container");
 var Messages = require("./containers/messages.container");
 var Stats = require("./containers/stats.container");
 var Home = require("./containers/home.container");
+var Gallery = require("./containers/gallery.container");
 
 render((
     <Router history={hashHistory}>
@@ -14,6 +15,7 @@ render((
             <Route path="/profile" component={Profile}/>
             <Route path="/messages" component={Messages}/>
             <Route path="/stats" component={Stats}/>
+            <Route path="/gallery" component={Gallery}/>
         </Route>
     </Router>
 ), document.getElementById('app'));
