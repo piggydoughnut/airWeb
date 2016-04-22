@@ -2,10 +2,10 @@ import { createStore, applyMiddleware } from 'redux'
 import createLogger from '../../node_modules/redux-logger/src/index'
 import rootReducer from '../reducers/index.reducer'
 import createSagaMiddleware from 'redux-saga'
-import { watchMessagesLoad } from '../sagas/sagas'
+import { watchMessagesLoad, watchFileFormPost } from '../sagas/sagas'
 
 const loggerMiddleware = createLogger();
-const sagaMiddleware = createSagaMiddleware(watchMessagesLoad);
+const sagaMiddleware = createSagaMiddleware(watchMessagesLoad, watchFileFormPost);
 
 export default function configureStore(initialState) {
     return createStore(
