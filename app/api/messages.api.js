@@ -12,7 +12,7 @@ export function loadMessagesForUser(id) {
         .then((response) => {
             try {
                 return response.json();
-            } catch(e) {
+            } catch (e) {
                 console.log('malformed request', response);
                 throw ('malformed request');
             }
@@ -25,7 +25,3 @@ export function loadMessagesForUser(id) {
             throw error;
         });
 }
-
-/**
- * @todo: handle HTTP errors
- */
