@@ -10,9 +10,9 @@ var Gallery = React.createClass({
     render: function () {
         var childElements = this.props.elements.map(function(element){
             return (
-            <Col xs={6} md={3} key={element.key}>
-                <Thumbnail src={element.src}  alt="242x200" >
-                    <h4>{element.name}</h4>
+            <Col xs={6} md={3} key={element._id}>
+                <Thumbnail src={element.thumb_file_path}  alt="242x200" >
+                    <h4>{element.filename}</h4>
                     <p>
                         <Button bsStyle="default">Add to my Gallery</Button>
                     </p>

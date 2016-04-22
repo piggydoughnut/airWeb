@@ -19,3 +19,17 @@ export function postObjFileForm(data) {
             throw error;
         });
 }
+
+export function getGallery(page = 1) {
+    var params = page ? '?page=' + page : '';
+    return fetch(Config.domain + "/files/gallery" + params,
+        {method: "GET"})
+        .then((response) => response.json())
+        .then((responseData) => {
+            return responseData
+        })
+        .catch(error => {
+            console.log(error);
+            throw error;
+        });
+}

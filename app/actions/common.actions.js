@@ -1,6 +1,7 @@
-export function success(action){
+export function success(action, data){
     return {
         type: action,
+        payload: data
     };
 }
 
