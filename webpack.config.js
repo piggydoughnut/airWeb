@@ -5,7 +5,10 @@ var BUILD_DIR = path.resolve(__dirname, 'web/build');
 var APP_DIR = path.resolve(__dirname, 'app');
 
 var config = {
-    entry: APP_DIR + '/index.js',
+    entry: [
+        'babel-polyfill',
+        APP_DIR + '/index.js'
+    ],
     output: {
         path: BUILD_DIR,
         filename: 'bundle.js'

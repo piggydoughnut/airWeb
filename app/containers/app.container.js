@@ -1,9 +1,10 @@
 import React from "react";
 import {Col, Nav, Navbar, NavItem} from "react-bootstrap";
+import {Provider} from "react-redux";
 var NavLink = require('../components/navLink');
 var Home = require('./home.container');
 
-export default React.createClass({
+class AppContainer extends React.Component {
     render() {
         return (
             <div>
@@ -26,8 +27,9 @@ export default React.createClass({
                 <Col md={8}>
                     {this.props.children || <Home/>}
                 </Col>
-
             </div>
         )
     }
-})
+}
+
+module.exports = AppContainer;
