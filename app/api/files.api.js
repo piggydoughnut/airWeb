@@ -10,7 +10,7 @@ export function postObjFileForm(data) {
         fd.append(file, data.files[file]);
     }
 
-    fetch(Config.domain + '/files', {
+    fetch(Config.domain + '/files/form', {
         method: 'POST',
         body: fd
     })
