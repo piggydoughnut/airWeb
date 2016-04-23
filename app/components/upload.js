@@ -2,6 +2,11 @@ import React from "react";
 import {FormGroup, ControlLabel, FormControl, HelpBlock, Col, Button, Panel, Accordion} from "react-bootstrap";
 var Config = require("../config/config");
 
+var styles = {
+    msg: {
+        color: 'green'
+    },
+}
 class Upload extends React.Component {
 
     constructor(props) {
@@ -9,9 +14,22 @@ class Upload extends React.Component {
         this.state = {
             filename: '',
             thumb_file: null,
-            obj_file: null
+            obj_file: null,
+            msg: ''
         }
     }
+
+    componentWillReceiveProps(nextProps){
+        if (nextProps.msg) {
+            this.setState({
+                filename: null,
+                thumb_file: null,
+                obj_file: null,
+                msg: nextProps.msg
+            })
+        }
+    }
+
     _formSubmitted() {
         this.props.uploadFile(
             this.state.filename, {
@@ -46,6 +64,7 @@ class Upload extends React.Component {
                         <Button bsStyle="primary" onClick={() => this._formSubmitted()}>
                             Upload
                         </Button>
+                        <div style={styles.msg}>{this.state.msg}</div>
                     </form>
                 </Col>
                 <Col md={8}>

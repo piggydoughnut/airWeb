@@ -1,4 +1,4 @@
-import {GET_GALLERY_SUCCESS, ADD_TO_GALLERY_SUCCESS, GET_GALLERY_USER_SUCCESS} from "../actions/files.actions";
+import {GET_GALLERY_SUCCESS, ADD_TO_GALLERY_SUCCESS, GET_GALLERY_USER_SUCCESS, FILES_POST_SUCCESS} from "../actions/files.actions";
 
 // initial state for messages is an empty array
 const gallery = (state = [], action) => {
@@ -15,6 +15,10 @@ const gallery = (state = [], action) => {
                 docs: state.docs,
                 limit: state.limit,
                 total: state.total
+        };
+        case FILES_POST_SUCCESS:
+            return {
+                msg: action.payload.msg
         };
         default:
             return state;

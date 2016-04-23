@@ -6,21 +6,36 @@ var Upload = require('../components/upload');
 
 class UploadContainer extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            msg: null
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.gallery.hasOwnProperty('msg')) {
+            this.setState({msg: nextProps.gallery.msg});
+        }
+    }
+
     _uploadFile(objFilename, files) {
         this.props.uploadFiles(objFilename, files, this.props.user._id);
     }
 
     render() {
         return (
-           <Upload
-               uploadFile={ (name, files) => this._uploadFile(name, files)}
-           />
+            <Upload
+                uploadFile={ (name, files) => this._uploadFile(name, files)}
+                msg={this.state.msg}
+            />
         )
     }
 }
 const mapStateToProps = (store) => {
     return {
-        user: store.user
+        user: store.user,
+        gallery: store.gallery
     };
 };
 

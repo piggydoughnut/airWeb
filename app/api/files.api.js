@@ -10,10 +10,19 @@ export function postObjFileForm(data) {
         fd.append(file, data.files[file]);
     }
 
-    fetch(Config.server + '/files/form', {
+    return fetch(Config.server + '/files/form', {
         method: 'POST',
         body: fd
     })
+        .then((response) => {
+            if (response.status == 400 || response.status == 500) {
+                throw 'Whoops! There is a problem with submitting your form.';
+            }
+            return response.json();
+        })
+        .then((responseData) => {
+            return responseData
+        })
         .catch(error => {
             console.log(error);
             throw error;

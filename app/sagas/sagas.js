@@ -22,7 +22,7 @@ function* loadMessages(data) {
 function* postFiles(data) {
     try {
         const response = yield call(filesApi.postObjFileForm, data.payload);
-        yield put(commonActions.success(FILES_POST_SUCCESS));
+        yield put(commonActions.success(FILES_POST_SUCCESS, response));
     } catch (error) {
         yield put(commonActions.failure(error, FILES_POST_FAILURE));
     }
