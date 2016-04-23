@@ -37,19 +37,23 @@ class Thumb extends React.Component {
     }
 
     render() {
+        var button = null;
+        if (this.props.addToGalleryFn) {
+            button = <Button
+                bsStyle="default"
+                disabled={this.state.disabled}
+                onClick={!this.state.loading ? () => this._addToGallery() : null}
+            >
+                {this.state.loading ? 'Processing...' : 'Add to my Gallery'}
+            </Button>;
+        }
         return (
             <Col xs={6} md={3}>
                 <Thumbnail src={config.server + this.props.element.thumb_file_path} alt="242x200">
                     <h4>{this.props.element.filename}</h4>
                     <div style={styles.msg200}>{this.state.msg}</div>
                     <p>
-                        <Button
-                            bsStyle="default"
-                            disabled={this.state.disabled}
-                            onClick={!this.state.loading ? () => this._addToGallery() : null}
-                        >
-                            {this.state.loading ? 'Processing...' : 'Add to my Gallery'}
-                        </Button>
+                        {button}
                     </p>
                 </Thumbnail>
             </Col>

@@ -19,6 +19,7 @@ class AppContainer extends React.Component {
                         <li><NavLink to="/profile">Profile</NavLink></li>
                         <li><NavLink to="/messages">Messages</NavLink></li>
                         <li><NavLink to="/gallery">3D Gallery</NavLink></li>
+                        <li><NavLink to="/my-gallery">My Gallery</NavLink></li>
                         <li><NavLink to="/upload">Upload 3D</NavLink></li>
                         <li><NavLink to="/stats">Stats</NavLink></li>
                     </Nav>

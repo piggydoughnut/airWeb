@@ -28,7 +28,7 @@ class GalleryContainer extends React.Component {
     componentWillReceiveProps(nextProps) {
         if(nextProps.gallery.hasOwnProperty('docs')){
             this.setState({
-                elements: nextProps.gallery.docs
+                elements: nextProps.gallery
             });
         }
         if(nextProps.gallery.hasOwnProperty('msg')) {
