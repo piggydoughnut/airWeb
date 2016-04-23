@@ -3,6 +3,7 @@ import {take, put, call, fork, select} from "redux-saga/effects";
 import {MESSAGES_USER_LOAD, MESSAGES_LOAD_SUCCESS, MESSAGES_LOAD_FAILURE} from "../actions/messages.actions";
 import {FILES_POST, FILES_POST_SUCCESS, FILES_POST_FAILURE} from '../actions/files.actions';
 import {GET_GALLERY, GET_GALLERY_SUCCESS, GET_GALLERY_FAILURE} from '../actions/files.actions';
+import {ADD_TO_GALLERY, ADD_TO_GALLERY_SUCCESS, ADD_TO_GALLERY_FAILURE} from '../actions/files.actions';
 
 var messagesApi = require('../api/messages.api');
 var filesApi = require('../api/files.api');
@@ -34,6 +35,14 @@ function* getGallery(data) {
         yield put(commonActions.failure(error, GET_GALLERY_FAILURE));
     }
 }
+function* addToGallery(data) {
+    try {
+        const response = yield call(filesApi.addToGallery, data.payload);
+        yield put(commonActions.success(ADD_TO_GALLERY_SUCCESS, response));
+    } catch (error) {
+        yield put(commonActions.failure(error, ADD_TO_GALLERY_FAILURE));
+    }
+}
 /** watchers */
 
 export function* watchMessagesLoad() {
@@ -46,5 +55,9 @@ export function* watchFileFormPost() {
 
 export function* watchGetGallery() {
     yield* takeEvery(GET_GALLERY, getGallery);
+}
+
+export function* watchAddToGallery() {
+    yield* takeEvery(ADD_TO_GALLERY, addToGallery);
 }
 

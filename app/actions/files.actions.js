@@ -5,6 +5,9 @@ export const FILES_POST_FAILURE = 'FILES POST FAILURE';
 export const GET_GALLERY = 'GALLERY GET';
 export const GET_GALLERY_SUCCESS = 'GALLERY GET SUCCESS';
 export const GET_GALLERY_FAILURE = 'GALLERY GET FAILURE';
+export const ADD_TO_GALLERY = 'ADD TO GALLERY';
+export const ADD_TO_GALLERY_SUCCESS = 'ADD TO GALLERY SUCCESS';
+export const ADD_TO_GALLERY_FAILURE = 'ADD TO GALLERY FAILURE';
 
 
 /** Action creators */
@@ -25,5 +28,11 @@ export function getGallery(page = 1) {
         payload: {
             page: page
         }
+    };
+}
+export function addToGallery(data) {
+    return {
+        type: ADD_TO_GALLERY,
+        payload: data
     };
 }

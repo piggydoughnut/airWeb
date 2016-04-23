@@ -10,7 +10,7 @@ export function postObjFileForm(data) {
         fd.append(file, data.files[file]);
     }
 
-    fetch(Config.domain + '/files/form', {
+    fetch(Config.server + '/files/form', {
         method: 'POST',
         body: fd
     })
@@ -22,7 +22,7 @@ export function postObjFileForm(data) {
 
 export function getGallery(page = 1) {
     var params = page ? '?page=' + page : '';
-    return fetch(Config.domain + "/files/gallery" + params,
+    return fetch(Config.server + "/files/gallery" + params,
         {method: "GET"})
         .then((response) => response.json())
         .then((responseData) => {
@@ -32,4 +32,18 @@ export function getGallery(page = 1) {
             console.log(error);
             throw error;
         });
+}
+
+export function addToGallery(data) {
+    fetch(Config.server + '/files/gallery/user', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+        .catch(error => {
+            console.log(error);
+            throw error;
+        })
 }

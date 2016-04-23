@@ -10,8 +10,18 @@ class GalleryContainer extends React.Component {
         super(props);
         this.state = {
             elements: null
-        }
+        };
         this.props.getGallery(1);
+    }
+
+    _addToGallery(data) {
+        var postData = {
+            'obj_file_path': data.obj_file_path,
+            'thumb_file_path': data.thumb_file_path,
+            'user_id':  this.props.user._id,
+            'filename':  data.filename
+        };
+        this.props.addToGallery(postData);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -30,6 +40,7 @@ class GalleryContainer extends React.Component {
         return (
             <Gallery
                 elements={this.state.elements}
+                addToGallery={(data) => this._addToGallery(data)}
             />
         );
     }
@@ -37,13 +48,15 @@ class GalleryContainer extends React.Component {
 
 const mapStateToProps = (store) => {
     return {
-        gallery: store.gallery
+        gallery: store.gallery,
+        user: store.user
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getGallery: bindActionCreators(filesActions.getGallery, dispatch)
+        getGallery: bindActionCreators(filesActions.getGallery, dispatch),
+        addToGallery: bindActionCreators(filesActions.addToGallery, dispatch)
     };
 };
 

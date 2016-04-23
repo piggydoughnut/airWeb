@@ -7,9 +7,7 @@ var Upload = require('../components/upload');
 class UploadContainer extends React.Component {
 
     _uploadFile(objFilename, files) {
-        console.log('upload container');
-        console.log(objFilename);
-        this.props.uploadFiles(objFilename, files, this.props.user._id)
+        this.props.uploadFiles(objFilename, files, this.props.user._id);
     }
 
     render() {
