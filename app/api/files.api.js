@@ -35,13 +35,19 @@ export function getGallery(page = 1) {
 }
 
 export function addToGallery(data) {
-    fetch(Config.server + '/files/gallery/user', {
+    return fetch(Config.server + '/files/gallery/user', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
     })
+        .then((response) => {
+            return response.json();
+        })
+        .then((responseData) => {
+            return responseData;
+        })
         .catch(error => {
             console.log(error);
             throw error;

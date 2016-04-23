@@ -19,11 +19,16 @@ class Gallery extends React.Component {
     }
     render() {
         var childElements = this.props.elements.map(function (element) {
+            var msg = '';
+            if(this.props.msg && (element.thumb_file_path == this.props.msg.thumb_file_path)){
+                msg = this.props.msg.msg;
+            }
             return (
                 <Thumb
                     key={element._id}
                     element={element}
                     addToGalleryFn={this.addToG}
+                    msg={msg}
                 />
             );
         }, this);

@@ -9,7 +9,8 @@ class GalleryContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            elements: null
+            elements: null,
+            msg: null
         };
         this.props.getGallery(1);
     }
@@ -25,10 +26,14 @@ class GalleryContainer extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
         if(nextProps.gallery.hasOwnProperty('docs')){
             this.setState({
                 elements: nextProps.gallery.docs
+            });
+        }
+        if(nextProps.gallery.hasOwnProperty('msg')) {
+            this.setState({
+                msg: nextProps.gallery.msg
             });
         }
     }
@@ -41,6 +46,7 @@ class GalleryContainer extends React.Component {
             <Gallery
                 elements={this.state.elements}
                 addToGallery={(data) => this._addToGallery(data)}
+                msg={this.state.msg}
             />
         );
     }
