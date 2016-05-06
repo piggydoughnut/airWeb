@@ -3,3 +3,4 @@
 /build
 /npm-debug.log
 /web/build
+/server/public/bundle.js

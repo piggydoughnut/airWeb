@@ -1,4 +1,5 @@
 var Config = require("../config/config");
+import {get, post} from "./default.api";
 
 export function postObjFileForm(data) {
     console.log('filesApi');
@@ -31,48 +32,14 @@ export function postObjFileForm(data) {
 
 export function getGallery(page = 1) {
     var params = page ? '?page=' + page : '';
-    return fetch(Config.server + "/files/gallery" + params,
-        {method: "GET"})
-        .then((response) => response.json())
-        .then((responseData) => {
-            return responseData
-        })
-        .catch(error => {
-            console.log(error);
-            throw error;
-        });
+    return get(Config.server + "/files/gallery" + params, 'eb03c4c06d42e445655dda71fb89c0675d13bda3a95769ba0466867a42e9d197');
 }
+
 export function getGalleryForUser(data) {
-    console.log(data.id);
     var params = data.page ? '?page=' + data.page : '';
-    return fetch(Config.server + "/files/gallery/user/" + data.id + params,
-        {method: "GET"})
-        .then((response) => response.json())
-        .then((responseData) => {
-            return responseData
-        })
-        .catch(error => {
-            console.log(error);
-            throw error;
-        });
+    return get(Config.server+ "/files/gallery/user/" + data.id + params, 'eb03c4c06d42e445655dda71fb89c0675d13bda3a95769ba0466867a42e9d197');
 }
 
 export function addToGallery(data) {
-    return fetch(Config.server + '/files/gallery/user', {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-        .then((response) => {
-            return response.json();
-        })
-        .then((responseData) => {
-            return responseData;
-        })
-        .catch(error => {
-            console.log(error);
-            throw error;
-        })
+    return post(Config.server + '/files/gallery/user', 'eb03c4c06d42e445655dda71fb89c0675d13bda3a95769ba0466867a42e9d197', data);
 }
