@@ -30,16 +30,16 @@ export function postObjFileForm(data) {
         });
 }
 
-export function getGallery(page = 1) {
-    var params = page ? '?page=' + page : '';
-    return get(Config.server + "/files/gallery" + params, 'eb03c4c06d42e445655dda71fb89c0675d13bda3a95769ba0466867a42e9d197');
+export function getGallery(data) {
+    var params = data.page ? '?page=' + data.page : '';
+    return get(Config.server + "/files/gallery" + params, data.token);
 }
 
 export function getGalleryForUser(data) {
     var params = data.page ? '?page=' + data.page : '';
-    return get(Config.server+ "/files/gallery/user/" + data.id + params, 'eb03c4c06d42e445655dda71fb89c0675d13bda3a95769ba0466867a42e9d197');
+    return get(Config.server+ "/files/gallery/user/" + data.id + params, data.token);
 }
 
 export function addToGallery(data) {
-    return post(Config.server + '/files/gallery/user', 'eb03c4c06d42e445655dda71fb89c0675d13bda3a95769ba0466867a42e9d197', data);
+    return post(Config.server + '/files/gallery/user', data.token, data.data);
 }

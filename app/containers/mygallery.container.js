@@ -11,7 +11,7 @@ class myGalleryContainer extends React.Component {
         this.state = {
             elements: null,
         };
-        this.props.getGalleryForUser(this.props.user._id, 1);
+        this.props.getGalleryForUser(this.props.user._id, 1, this.props.token.access_token);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -37,7 +37,8 @@ class myGalleryContainer extends React.Component {
 const mapStateToProps = (store) => {
     return {
         gallery: store.gallery,
-        user: store.user
+        user: store.user.user,
+        token: store.user.tokenInfo
     }
 };
 
