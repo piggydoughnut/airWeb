@@ -23,6 +23,9 @@ export function checkResponseStatus(response) {
     if (response.status == 403) {
         throw 'Invalid credentials'
     }
+    if (response.status == 401) {
+        throw 401;
+    }
     if (response.status == 500) {
         throw 'Server Error';
     }

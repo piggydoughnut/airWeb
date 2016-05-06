@@ -6,6 +6,7 @@ var Home = require('./home.container');
 
 class AppContainer extends React.Component {
     render() {
+        console.log('hello');
         return (
             <div>
                 <Navbar>

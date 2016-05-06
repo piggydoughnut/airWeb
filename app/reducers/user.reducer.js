@@ -1,4 +1,4 @@
-import {LOGIN_SUCCESS, LOGIN_FAILURE, SET_TOKEN, SET_USER_FROM_LS} from "../actions/auth.actions.js";
+import {LOGIN_SUCCESS, LOGIN_FAILURE, SET_TOKEN, SET_USER_FROM_LS, GO_TO_LOGIN} from "../actions/auth.actions.js";
 // initial state for login is empty user details
 const user = (state = [], action) => {
     switch (action.type) {
@@ -22,7 +22,9 @@ const user = (state = [], action) => {
             return{
                 tokenInfo: user.tokenInfo,
                 user: user.user
-            }
+            };
+        case GO_TO_LOGIN:
+            return {};
         default:
             return state;
     }

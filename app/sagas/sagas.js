@@ -27,6 +27,9 @@ function* auth(action) {
         checkResponseStatus(user);
         yield put(authActions.loginSuccess(user));
     } catch (error) {
+        if(error === 401){
+            return yield put(authActions.goToLogin());
+        }
         yield put(commonActions.failure(error, LOGIN_FAILURE))
     }
 }
@@ -37,6 +40,9 @@ function* loadMessages(data) {
         checkResponseStatus(response);
         yield put(commonActions.success(MESSAGES_LOAD_SUCCESS, response));
     } catch (error) {
+        if(error === 401){
+            return yield put(authActions.goToLogin());
+        }
         yield put(commonActions.failure(error, MESSAGES_LOAD_FAILURE));
     }
 }

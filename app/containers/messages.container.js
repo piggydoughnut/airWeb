@@ -2,7 +2,9 @@ import React from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as messageActions from "../actions/messages.actions";
+import * as authActions from "../actions/auth.actions";
 import {Table, Tabs, Tab} from "react-bootstrap";
+import { push } from 'react-router-redux'
 
 var Row = require('../components/row');
 
@@ -16,6 +18,12 @@ class MessageContainer extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
+        if(nextProps.user === undefined){
+            console.log('user is empty');
+            this.props.goToLogin();
+
+        }
         if(nextProps.messages.hasOwnProperty('docs')){
             this.setState({messages: nextProps.messages.docs});
         }
@@ -113,13 +121,15 @@ const mapStateToProps = (store) => {
     return {
         messages: store.messages,
         user: store.user.user,
-        token: store.user.tokenInfo
+        token: store.user.tokenInfo,
+        store: store
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadMessagesForUser: bindActionCreators(messageActions.loadMessagesForUser, dispatch)
+        loadMessagesForUser: bindActionCreators(messageActions.loadMessagesForUser, dispatch),
+        goToLogin: bindActionCreators(authActions.redirectToLogin, dispatch)
     };
 };
 
