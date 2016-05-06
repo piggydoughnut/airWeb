@@ -1,4 +1,4 @@
-import {GET_STATS_COUNTRIES_SUCCESS, GET_STATS_COUNTRIES_FAILURE GET_STATS_CITIES_SUCCESS, GET_STATS_CITIES_FAILURE} from "../actions/stats.actions";
+import {GET_STATS_COUNTRIES_SUCCESS, GET_STATS_COUNTRIES_FAILURE, GET_STATS_CITIES_SUCCESS, GET_STATS_CITIES_FAILURE} from "../actions/stats.actions";
 // initial state for login is empty user details
 const stats = (state = [], action) => {
     switch (action.type) {
