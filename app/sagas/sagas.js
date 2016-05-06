@@ -5,10 +5,31 @@ import {FILES_POST, FILES_POST_SUCCESS, FILES_POST_FAILURE} from '../actions/fil
 import {GET_GALLERY, GET_GALLERY_SUCCESS, GET_GALLERY_FAILURE} from '../actions/files.actions';
 import {GET_GALLERY_USER, GET_GALLERY_USER_SUCCESS, GET_GALLERY_USER_FAILURE} from '../actions/files.actions';
 import {ADD_TO_GALLERY, ADD_TO_GALLERY_SUCCESS, ADD_TO_GALLERY_FAILURE} from '../actions/files.actions';
+import {LOGIN_BASIC, LOGIN_FAILURE} from "../actions/auth.actions";
 
 var messagesApi = require('../api/messages.api');
 var filesApi = require('../api/files.api');
+var usersApi = require('../api/users.api');
+
 var commonActions = require('../actions/common.actions');
+var authActions = require('../actions/auth.actions');
+import {checkResponseStatus} from "../api/default.api";
+
+
+/** workers */
+function* auth(action) {
+    try {
+        const response = yield call(usersApi.getAccess, action.payload);
+        checkResponseStatus(response);
+        yield put(authActions.setToken(response));
+
+        const user = yield call(usersApi.getUserInfo, response.access_token);
+        checkResponseStatus(user);
+        yield put(authActions.loginSuccess(user));
+    } catch (error) {
+        yield put(commonActions.failure(error, LOGIN_FAILURE))
+    }
+}
 
 function* loadMessages(data) {
     try {
@@ -74,4 +95,9 @@ export function* watchGetGalleryUser() {
 export function* watchAddToGallery() {
     yield* takeEvery(ADD_TO_GALLERY, addToGallery);
 }
+
+export function* watchLogin() {
+    yield* takeEvery(LOGIN_BASIC, auth);
+}
+
 

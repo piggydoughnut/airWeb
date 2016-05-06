@@ -8,5 +8,7 @@ module.exports = {
     turboSquid: "http://www.turbosquid.com/Search/3D-Models/free",
     cgTrader: "https://www.cgtrader.com/free-3d-models",
     allowedObjFiles: [ 'wt3'],
-    allowedImgFiles: ['image/jpeg', 'image/png']
+    allowedImgFiles: ['image/jpeg', 'image/png'],
+    client_id: 'test',
+    client_secret: 'test'
 };
