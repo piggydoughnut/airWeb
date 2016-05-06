@@ -20,7 +20,7 @@ class UploadContainer extends React.Component {
     }
 
     _uploadFile(objFilename, files) {
-        this.props.uploadFiles(objFilename, files, this.props.user._id);
+        this.props.uploadFiles(objFilename, files, this.props.user._id, this.props.token.access_token);
     }
 
     render() {
@@ -34,8 +34,9 @@ class UploadContainer extends React.Component {
 }
 const mapStateToProps = (store) => {
     return {
-        user: store.user,
-        gallery: store.gallery
+        user: store.user.user,
+        gallery: store.gallery,
+        token: store.user.tokenInfo
     };
 };
 

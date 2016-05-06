@@ -2,7 +2,6 @@ var Config = require("../config/config");
 import {get, post} from "./default.api";
 
 export function postObjFileForm(data) {
-    console.log('filesApi');
     var fd = new FormData();
     var file = '';
     fd.append('filename', data.filename);
@@ -10,24 +9,7 @@ export function postObjFileForm(data) {
     for (file in data.files) {
         fd.append(file, data.files[file]);
     }
-
-    return fetch(Config.server + '/files/form', {
-        method: 'POST',
-        body: fd
-    })
-        .then((response) => {
-            if (response.status == 400 || response.status == 500) {
-                throw 'Whoops! There is a problem with submitting your form.';
-            }
-            return response.json();
-        })
-        .then((responseData) => {
-            return responseData
-        })
-        .catch(error => {
-            console.log(error);
-            throw error;
-        });
+    return post(Config.server + '/files/form', data.token, fd);
 }
 
 export function getGallery(data) {
@@ -41,5 +23,5 @@ export function getGalleryForUser(data) {
 }
 
 export function addToGallery(data) {
-    return post(Config.server + '/files/gallery/user', data.token, data.data);
+    return post(Config.server + '/files/gallery/user', data.token, JSON.stringify(data.data), false);
 }

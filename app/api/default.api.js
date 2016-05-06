@@ -36,20 +36,24 @@ export function get(url, token) {
     return request(url, 'GET', token);
 }
 
-export function post(url, token, data) {
-    return request(url, 'POST', token, data);
+export function post(url, token, data, contentType) {
+    return request(url, 'POST', token, data, contentType);
 }
 
-export function request(url, method, token, data) {
+export function request(url, method, token, data, jsonContent) {
     var request_body = {
         method: method,
         headers: {
-            'Content-type': 'application/json',
             'Authorization': 'Bearer ' + token
         }
     };
     if (data && data !== undefined) {
-        request_body.body = JSON.stringify(data);
+        request_body.body = data;
+    }
+    if(jsonContent){
+        request_body.headers = {
+            'Content-type': 'application/json'
+        };
     }
 
     return fetch(url, request_body)
