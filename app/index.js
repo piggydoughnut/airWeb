@@ -12,21 +12,33 @@ var Gallery = require("./containers/gallery.container");
 var myGallery = require("./containers/mygallery.container");
 var Upload = require("./containers/upload.container");
 var App = require("./containers/app.container");
+var Login = require("./containers/login.container");
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
+
+function requireAuth(nextState, replace) {
+    console.log(nextState);
+    if (nextState.user === undefined || nextState.user.user == undefined || nextState.user.token === undefined || nextState.user.token === []) {
+        replace({
+            pathname: '/login',
+            state: { nextPathname: nextState.location.pathname }
+        })
+    }
+}
 
 render((
     <Provider store={store}>
         <Router history={history}>
             <Route path="/" component={App}>
-                <IndexRoute component={Home}/>
-                <Route path="/profile" component={Profile}/>
-                <Route path="/messages" component={Messages}/>
-                <Route path="/stats" component={Stats}/>
-                <Route path="/gallery" component={Gallery}/>
-                <Route path="/my-gallery" component={myGallery}/>
-                <Route path="/upload" component={Upload}/>
+                <IndexRoute component={Home} onEnter={requireAuth}/>
+                <Route path="/login" component={Login}/>
+                <Route path="/profile" component={Profile}  onEnter={requireAuth}/>
+                <Route path="/messages" component={Messages}  onEnter={requireAuth}/>
+                <Route path="/stats" component={Stats}  onEnter={requireAuth}/>
+                <Route path="/gallery" component={Gallery}  onEnter={requireAuth}/>
+                <Route path="/my-gallery" component={myGallery}  onEnter={requireAuth}/>
+                <Route path="/upload" component={Upload}  onEnter={requireAuth}/>
             </Route>
         </Router>
     </Provider>
