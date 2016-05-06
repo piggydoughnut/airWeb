@@ -33,7 +33,7 @@ function* auth(action) {
 
 function* loadMessages(data) {
     try {
-        const response = yield call(messagesApi.loadMessagesForUser, data.payload.user_id);
+        const response = yield call(messagesApi.loadMessagesForUser, data.payload);
         yield put(commonActions.success(MESSAGES_LOAD_SUCCESS, response));
     } catch (error) {
         yield put(commonActions.failure(error, MESSAGES_LOAD_FAILURE));

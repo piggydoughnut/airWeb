@@ -22,7 +22,7 @@ class MessageContainer extends React.Component {
     }
 
     _loadMessages() {
-        this.props.loadMessagesForUser(this.props.user._id);
+        this.props.loadMessagesForUser(this.props.user._id, this.props.token.access_token);
     }
 
     render() {
@@ -112,7 +112,8 @@ class MessageContainer extends React.Component {
 const mapStateToProps = (store) => {
     return {
         messages: store.messages,
-        user: store.user
+        user: store.user.user,
+        token: store.user.tokenInfo
     };
 };
 

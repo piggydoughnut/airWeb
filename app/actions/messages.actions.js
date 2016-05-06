@@ -5,11 +5,12 @@ export const MESSAGES_LOAD_FAILURE = 'MESSAGES LOAD FAILURE';
 
 
 /** Action creators */
-export function loadMessagesForUser(id) {
+export function loadMessagesForUser(id, token) {
     return {
         type: MESSAGES_USER_LOAD,
         payload: {
-            user_id: id
+            user_id: id,
+            token: token
         }
     }
 }
