@@ -14,17 +14,22 @@ var Upload = require("./containers/upload.container");
 var App = require("./containers/app.container");
 var Login = require("./containers/login.container");
 
+import {SET_USER_FROM_LS} from './actions/auth.actions';
+
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
 function requireAuth(nextState, replace) {
     var state = store.getState();
-    console.log(state);
+    if(localStorage.getItem('user') && (state.user === undefined || state.user.user == undefined || state.user.tokenInfo === undefined || state.user.tokenInfo === [])){
+        store.dispatch({type: SET_USER_FROM_LS});
+        return;
+    }
     if (state.user === undefined || state.user.user == undefined || state.user.tokenInfo === undefined || state.user.tokenInfo === []) {
         replace({
             pathname: '/login',
             state: { nextPathname: nextState.location.pathname }
-        })
+        });
     }
 }
 

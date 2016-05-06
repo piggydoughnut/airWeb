@@ -3,6 +3,7 @@ export const LOGIN_BASIC = 'LOGIN_BASIC';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const SET_TOKEN = 'SET TOKEN';
+export const SET_USER_FROM_LS = 'SET USER FROM LOCAL STORAGE';
 
 /** Action creators */
 
