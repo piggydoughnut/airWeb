@@ -3,11 +3,14 @@ import {take, put, call, fork, select} from "redux-saga/effects";
 import {MESSAGES_USER_LOAD, MESSAGES_LOAD_SUCCESS, MESSAGES_LOAD_FAILURE} from "../actions/messages.actions";
 import {FILES_POST, FILES_POST_SUCCESS, FILES_POST_FAILURE} from '../actions/files.actions';
 import {GET_GALLERY, GET_GALLERY_SUCCESS, GET_GALLERY_FAILURE} from '../actions/files.actions';
+import {GET_STATS_COUNTRIES, GET_STATS_COUNTRIES_SUCCESS, GET_STATS_COUNTRIES_FAILURE} from '../actions/stats.actions';
+import {GET_STATS_CITIES, GET_STATS_CITIES_SUCCESS, GET_STATS_CITIES_FAILURE} from '../actions/stats.actions';
 import {GET_GALLERY_USER, GET_GALLERY_USER_SUCCESS, GET_GALLERY_USER_FAILURE} from '../actions/files.actions';
 import {ADD_TO_GALLERY, ADD_TO_GALLERY_SUCCESS, ADD_TO_GALLERY_FAILURE} from '../actions/files.actions';
 
 var messagesApi = require('../api/messages.api');
 var filesApi = require('../api/files.api');
+var statsApi = require('../api/stats.api');
 var commonActions = require('../actions/common.actions');
 
 function* loadMessages(data) {
@@ -54,6 +57,25 @@ function* addToGallery(data) {
         yield put(commonActions.failure(error, ADD_TO_GALLERY_FAILURE));
     }
 }
+
+function* getCountries() {
+    try {
+        const response = yield call(statsApi.getStatsCountries);
+        yield put(commonActions.success(GET_STATS_COUNTRIES_SUCCESS, response));
+    } catch (error) {
+        yield put(commonActions.failure(error, GET_STATS_CITIES_FAILURE));
+    }
+}
+
+function* getCities() {
+    try {
+        const response = yield call(statsApi.getStatsCities);
+        yield put(commonActions.success(GET_STATS_CITIES_SUCCESS, response));
+    } catch (error) {
+        yield put(commonActions.failure(error, GET_STATS_COUNTRIES_FAILURE));
+    }
+}
+
 /** watchers */
 
 export function* watchMessagesLoad() {
@@ -75,3 +97,10 @@ export function* watchAddToGallery() {
     yield* takeEvery(ADD_TO_GALLERY, addToGallery);
 }
 
+export function* watchGetCountriesStats() {
+    yield* takeEvery(GET_STATS_COUNTRIES, getCountries);
+}
+
+export function* watchGetCitiesStats() {
+    yield* takeEvery(GET_STATS_CITIES, getCities);
+}
