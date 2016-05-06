@@ -12,7 +12,7 @@ class GalleryContainer extends React.Component {
             elements: null,
             msg: null
         };
-        this.props.getGallery(1);
+        this.props.getGallery(1, this.props.token.access_token);
     }
 
     _addToGallery(data) {
@@ -22,7 +22,7 @@ class GalleryContainer extends React.Component {
             'user_id':  this.props.user._id,
             'filename':  data.filename
         };
-        this.props.addToGallery(postData);
+        this.props.addToGallery(postData, this.props.token.access_token);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -55,7 +55,8 @@ class GalleryContainer extends React.Component {
 const mapStateToProps = (store) => {
     return {
         gallery: store.gallery,
-        user: store.user
+        user: store.user.user,
+        token: store.user.tokenInfo
     }
 };
 

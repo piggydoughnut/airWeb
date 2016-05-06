@@ -5,7 +5,7 @@ import gallery from './gallery.reducer'
 import stats from './stats.reducer'
 import { routerReducer } from 'react-router-redux'
 
-const airMsgApp = combineReducers({
+const airMsgReducer = combineReducers({
     messages,
     user,
     gallery,
@@ -13,4 +13,4 @@ const airMsgApp = combineReducers({
     stats
 });
 
-export default airMsgApp;
+export default airMsgReducer;

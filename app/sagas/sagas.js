@@ -7,17 +7,45 @@ import {GET_STATS_COUNTRIES, GET_STATS_COUNTRIES_SUCCESS, GET_STATS_COUNTRIES_FA
 import {GET_STATS_CITIES, GET_STATS_CITIES_SUCCESS, GET_STATS_CITIES_FAILURE} from '../actions/stats.actions';
 import {GET_GALLERY_USER, GET_GALLERY_USER_SUCCESS, GET_GALLERY_USER_FAILURE} from '../actions/files.actions';
 import {ADD_TO_GALLERY, ADD_TO_GALLERY_SUCCESS, ADD_TO_GALLERY_FAILURE} from '../actions/files.actions';
+import {LOGIN_BASIC, LOGIN_FAILURE} from "../actions/auth.actions";
 
 var messagesApi = require('../api/messages.api');
 var filesApi = require('../api/files.api');
 var statsApi = require('../api/stats.api');
+var usersApi = require('../api/users.api');
+
 var commonActions = require('../actions/common.actions');
+var authActions = require('../actions/auth.actions');
+import {checkResponseStatus} from "../api/default.api";
+
+
+/** workers */
+function* auth(action) {
+    try {
+        const response = yield call(usersApi.getAccess, action.payload);
+        checkResponseStatus(response);
+        yield put(authActions.setToken(response));
+
+        const user = yield call(usersApi.getUserInfo, response.access_token);
+        checkResponseStatus(user);
+        yield put(authActions.loginSuccess(user));
+    } catch (error) {
+        if(error === 401){
+            return yield put(authActions.goToLogin());
+        }
+        yield put(commonActions.failure(error, LOGIN_FAILURE))
+    }
+}
 
 function* loadMessages(data) {
     try {
-        const response = yield call(messagesApi.loadMessagesForUser, data.payload.user_id);
+        const response = yield call(messagesApi.loadMessagesForUser, data.payload);
+        checkResponseStatus(response);
         yield put(commonActions.success(MESSAGES_LOAD_SUCCESS, response));
     } catch (error) {
+        if(error === 401){
+            return yield put(authActions.goToLogin());
+        }
         yield put(commonActions.failure(error, MESSAGES_LOAD_FAILURE));
     }
 }
@@ -25,6 +53,7 @@ function* loadMessages(data) {
 function* postFiles(data) {
     try {
         const response = yield call(filesApi.postObjFileForm, data.payload);
+        checkResponseStatus(response);
         yield put(commonActions.success(FILES_POST_SUCCESS, response));
     } catch (error) {
         yield put(commonActions.failure(error, FILES_POST_FAILURE));
@@ -33,7 +62,8 @@ function* postFiles(data) {
 
 function* getGallery(data) {
     try {
-        const response = yield call(filesApi.getGallery, data.page);
+        const response = yield call(filesApi.getGallery, data.payload);
+        checkResponseStatus(response);
         yield put(commonActions.success(GET_GALLERY_SUCCESS, response));
     } catch (error) {
         yield put(commonActions.failure(error, GET_GALLERY_FAILURE));
@@ -43,6 +73,7 @@ function* getGallery(data) {
 function* getGalleryUser(data) {
     try {
         const response = yield call(filesApi.getGalleryForUser, data.payload);
+        checkResponseStatus(response);
         yield put(commonActions.success(GET_GALLERY_USER_SUCCESS, response));
     } catch (error) {
         yield put(commonActions.failure(error, GET_GALLERY_USER_FAILURE));
@@ -52,6 +83,7 @@ function* getGalleryUser(data) {
 function* addToGallery(data) {
     try {
         const response = yield call(filesApi.addToGallery, data.payload);
+        checkResponseStatus(response);
         yield put(commonActions.success(ADD_TO_GALLERY_SUCCESS, response));
     } catch (error) {
         yield put(commonActions.failure(error, ADD_TO_GALLERY_FAILURE));
@@ -104,3 +136,7 @@ export function* watchGetCountriesStats() {
 export function* watchGetCitiesStats() {
     yield* takeEvery(GET_STATS_CITIES, getCities);
 }
+export function* watchLogin() {
+    yield* takeEvery(LOGIN_BASIC, auth);
+}
+

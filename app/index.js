@@ -12,21 +12,39 @@ var Gallery = require("./containers/gallery.container");
 var myGallery = require("./containers/mygallery.container");
 var Upload = require("./containers/upload.container");
 var App = require("./containers/app.container");
+var Login = require("./containers/login.container");
+
+import {SET_USER_FROM_LS} from './actions/auth.actions';
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
+
+function requireAuth(nextState, replace) {
+    var state = store.getState();
+    if(localStorage.getItem('user') && (state.user === undefined || state.user.user == undefined || state.user.tokenInfo === undefined || state.user.tokenInfo === [])){
+        store.dispatch({type: SET_USER_FROM_LS});
+        return;
+    }
+    if (state.user === undefined || state.user.user == undefined || state.user.tokenInfo === undefined || state.user.tokenInfo === []) {
+        replace({
+            pathname: '/login',
+            state: { nextPathname: nextState.location.pathname }
+        });
+    }
+}
 
 render((
     <Provider store={store}>
         <Router history={history}>
             <Route path="/" component={App}>
-                <IndexRoute component={Home}/>
-                <Route path="/profile" component={Profile}/>
-                <Route path="/messages" component={Messages}/>
-                <Route path="/stats" component={Stats}/>
-                <Route path="/gallery" component={Gallery}/>
-                <Route path="/my-gallery" component={myGallery}/>
-                <Route path="/upload" component={Upload}/>
+                <IndexRoute component={Home} onEnter={requireAuth}/>
+                <Route path="/login" component={Login}/>
+                <Route path="/profile" component={Profile}  onEnter={requireAuth}/>
+                <Route path="/messages" component={Messages}  onEnter={requireAuth}/>
+                <Route path="/stats" component={Stats}  onEnter={requireAuth}/>
+                <Route path="/gallery" component={Gallery}  onEnter={requireAuth}/>
+                <Route path="/my-gallery" component={myGallery}  onEnter={requireAuth}/>
+                <Route path="/upload" component={Upload}  onEnter={requireAuth}/>
             </Route>
         </Router>
     </Provider>

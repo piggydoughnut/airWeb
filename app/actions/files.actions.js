@@ -14,38 +14,44 @@ export const ADD_TO_GALLERY_FAILURE = 'ADD TO GALLERY FAILURE';
 
 
 /** Action creators */
-export function uploadFiles(filename, files, id) {
+export function uploadFiles(filename, files, id, token) {
     return {
         type: FILES_POST,
         payload: {
             filename: filename,
             files: files,
-            user_id: id
+            user_id: id,
+            token: token
         }
     };
 }
 
-export function getGallery(page = 1) {
+export function getGallery(page = 1, token) {
     return {
         type: GET_GALLERY,
         payload: {
-            page: page
+            page: page,
+            token
         }
     };
 }
-export function addToGallery(data) {
+export function addToGallery(data, token) {
     return {
         type: ADD_TO_GALLERY,
-        payload: data
+        payload: {
+            data,
+            token
+        }
     };
 }
 
-export function getGalleryForUser(user_id, page = 1) {
+export function getGalleryForUser(user_id, page = 1, token) {
     return {
         type: GET_GALLERY_USER,
         payload: {
             id: user_id,
-            page: page
+            page: page,
+            token
         }
     };
 }

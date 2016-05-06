@@ -1,4 +1,4 @@
-import React from "react";
+var React = require('react');
 
 export function checkStatus(response) {
     if (response.status >= 200 && response.status < 300) {
@@ -24,28 +24,35 @@ export function checkResponseStatus(response) {
         throw 'Invalid credentials'
     }
     if (response.status == 401) {
-        throw 'Unathorised';
+        throw 401;
+    }
+    if (response.status == 500) {
+        throw 'Server Error';
     }
 }
 
-export function get(url, token){
+export function get(url, token) {
     return request(url, 'GET', token);
 }
 
-export function post(url, token, data){
-    return request(url, 'POST', token, data);
+export function post(url, token, data, contentType) {
+    return request(url, 'POST', token, data, contentType);
 }
 
-export function request(url, method, token, data){
+export function request(url, method, token, data, jsonContent) {
     var request_body = {
         method: method,
         headers: {
-            'Content-type': 'application/json',
-            // 'Authorization': 'Bearer ' + token
+            'Authorization': 'Bearer ' + token
         }
     };
-    if(data && data !== undefined){
-        request_body.body = JSON.stringify(data);
+    if (data && data !== undefined) {
+        request_body.body = data;
+    }
+    if(jsonContent){
+        request_body.headers = {
+            'Content-type': 'application/json'
+        };
     }
 
     return fetch(url, request_body)

@@ -1,7 +1,8 @@
+require('babel-core/register');
 var webpack = require('webpack');
 var path = require('path');
 console.log(__dirname);
-var BUILD_DIR = path.resolve(__dirname, 'web/build');
+var BUILD_DIR = path.resolve(__dirname, 'server/public');
 var APP_DIR = path.resolve(__dirname, 'app');
 
 var config = {

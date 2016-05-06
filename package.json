@@ -4,8 +4,8 @@
   "description": "React web for AirMsg app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --inline --content-base . --history-api-fallback"
+    "build": "NODE_ENV=production webpack -p --config webpack.production.config.js --progress --profile --colors",
+    "dev": "webpack-dev-server --progress --profile --colors --hot"
   },
   "repository": {
     "type": "git",
@@ -14,8 +14,11 @@
   "author": "Daria",
   "license": "ISC",
   "dependencies": {
+    "babel": "^6.5.2",
     "imports-loader": "^0.6.5",
-    "react": "^15.0.1",
+    "jsx-loader": "^0.13.2",
+    "node-jsx": "^0.13.3",
+    "react": "^15.0.2",
     "react-bootstrap": "^0.29.0",
     "react-dom": "^15.0.1",
     "react-masonry-component": "^4.0.2",
