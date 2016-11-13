@@ -1,3 +1,4 @@
 # Web for GPS pinned messaging application
 
-Heavily in development. 
+Deprecated.
+Complimentary web for configuring settings for the air application.
